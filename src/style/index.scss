@@ -1,0 +1,61 @@
+@import "./style";
+
+*,
+*:before,
+*:after {
+    box-sizing: border-box;
+}
+
+a {
+    display: inline-block;
+    color: #000;
+    outline: none;
+    text-decoration: none;
+}
+
+iframe {
+    width: 100%;
+    height: auto;
+}
+
+address {
+    font-style: normal;
+}
+
+body,
+html {
+    @include font-size(16px);
+    padding: 0;
+    margin: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+a,
+p,
+li {
+    font-weight: inherit;
+    font-size: inherit;
+    line-height: inherit;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    // overflow-x: hidden;
+
+    section {
+        margin: 20px 0;
+        padding: 10px;
+    }
+}
+
+.display-none {
+    display: none;
+}

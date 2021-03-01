@@ -1,0 +1,46 @@
+@function strip-unit($number) {
+    @if type-of($number)=='number' and not unitless($number) {
+        @return $number / ($number * 0 + 1);
+    }
+
+    @return $number;
+}
+
+@function isPx ($value) {
+
+    @return str-slice($value*0+'', 2, -1)=="px";
+}
+
+// @debug isPx(1rem);
+// @debug isPx(1em);
+// @debug isPx(16px);
+
+@function fontCalc($value) {
+    @if isPx($value)==true {
+        @return strip-unit($value)/16 * 1rem;
+    }
+
+    @return $value;
+}
+
+// @debug fontCalc(5rem);
+// @debug fontCalc(5em);
+// @debug fontCalc(32px);
+
+@mixin font-size($value) {
+    font-size: fontCalc($value);
+    line-height: fontCalc($value);
+}
+
+@mixin burger($bgc, $top, $left, $height, $width, $deg) {
+    background-color: $bgc;
+    display: block;
+    width: $height;
+    height: $width;
+    position: absolute;
+    top: $top;
+    left: $left;
+    transition: top 1s, transform 1s;
+    transform: rotateZ($deg);
+
+}
