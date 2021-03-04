@@ -1,13 +1,12 @@
-import { JsonObjectExpressionStatement } from 'typescript'
-
-const Fetch: (url: string) => Promise<JsonObjectExpressionStatement> = (url) => {
+const Fetch: (url: string) => any = (url) => {
 	return fetch(url)
 		.then((response) => {
 			return response.json()
 		})
-		.catch((error:ErrorEvent) => {
-      console.error(error.message)
-      return null;
+		.then((data) => data)
+		.catch((error: ErrorEvent) => {
+			console.error(error.message)
+			return null
 		})
 }
 
