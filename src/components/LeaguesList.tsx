@@ -30,7 +30,7 @@ class League implements ILeague {
 	}
 
   public ToJSX(){
-    return <p><Link to={`/league/${this.idLeague}`}>{this.strLeagueAlternate}</Link></p>
+    return <li key={this.idLeague}><Link to={'/league/'+this.idLeague}>{this.strLeague}</Link></li>
   }
 }
 
@@ -56,12 +56,18 @@ class LeaguesList implements ILeagueList {
   public Add(league:LeagueType){
     this.leaguesList.push(new League(league))
   }
-  public ToJSX(){
-    let leagueElements = this.leaguesList.map(element => {
+  public ToJSX(name:string  = ''){
+    const filteredList = name !==''?
+      this.leaguesList.filter((elem)=>elem.strLeague.toUpperCase().includes(name.toUpperCase()))
+      :this.leaguesList
+    let leagueElements = filteredList.map(element => {
       return element.ToJSX();
     });
 
-    return <div><p>{this.sport}</p>{leagueElements}</div>
+    return < >
+      <p>{this.sport}</p>
+      <ul>{leagueElements}</ul>
+    </>
   }
 
 }

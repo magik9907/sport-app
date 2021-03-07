@@ -1,44 +1,95 @@
-import { FunctionComponent } from 'react'
+import { FunctionComponent, useEffect, useRef, useState } from 'react'
 import { LeaguesList, LeagueType } from '../components/LeaguesList'
-import { useFetch } from '../hooks/useFetch'
 
 type LeaguesProps = {}
 
-type DataType = {
-	leagues: Array<LeagueType>
+type GenerateLeagueListType = {
+	data: { [key: string]: LeaguesList }
+	sport: string
+	leagueName: string
 }
 
-const GenerateLeagueList = (props: { data: DataType }) => {
+const GenerateLeagueList = (props: GenerateLeagueListType) => {
 	try {
-		const leagues: LeagueType[] = props.data.leagues
-		let sportLeaugeGrouping: { [key: string]: LeaguesList } = {}
-		leagues.forEach((elem: LeagueType) => {
-			let sport = elem.strSport
-			if (sportLeaugeGrouping[sport] !== undefined) sportLeaugeGrouping[sport].Add(elem)
-			else {
-				sportLeaugeGrouping[sport] = new LeaguesList(sport)
-			}
-		})
+		const leagueName: string = props.leagueName
+		const sport: string = props.sport
 
-		return <div>{
-			Object.entries(sportLeaugeGrouping).map(([key,value])=>{
-				return <>
-					{value.ToJSX()}
-				</>
-			})
-			}</div>
+		let leagues: { [key: string]: LeaguesList } | LeaguesList = {}
+		if (sport !== '') leagues[sport] = props.data[sport]
+		else leagues = props.data
+		return (
+			<div>
+				{Object.entries(leagues).map(([ key, value ]) => {
+					return <div key={key}>{value.ToJSX(leagueName)}</div>
+				})}
+			</div>
+		)
 	} catch (e) {
 		console.log(e)
-		return <p>Problem</p>
+		return <p key={'pr'}>Problem</p>
 	}
 }
 
 const Leagues: FunctionComponent<LeaguesProps> = () => {
-	const [ jsonData, setJsonData ]: any = useFetch('https://www.thesportsdb.com/api/v1/json/1/all_leagues.php')
+	const sportInput = useRef<HTMLSelectElement>(null)
+	const leagueInput = useRef<HTMLInputElement>(null)
+	const [ jsonData, setJsonData ] = useState({})
+	const [ sportSelected, setSportSelected ] = useState('')
+	const [ leagueSelected, setLeagueSelected ] = useState('')
+	useEffect(() => {
+		console.log('fet')
+		fetch('https://www.thesportsdb.com/api/v1/json/1/all_leagues.php')
+			.then((response) => response.json())
+			.then((data) => {
+				let groupingList: { [key: string]: LeaguesList } = {}
+				data.leagues.forEach((elem: LeagueType) => {
+					if (!groupingList[elem.strSport]) groupingList[elem.strSport] = new LeaguesList(elem.strSport)
+					groupingList[elem.strSport].Add(elem)
+				})
+				setJsonData(groupingList)
+			})
+			.catch((error) => {
+				console.error(error)
+			})
+	}, [])
+
 	return (
 		<div>
 			<h1>Leagues</h1>
-			{jsonData.leagues !== undefined ? <GenerateLeagueList data={jsonData} /> : <p>fetching...</p>}
+			<form action="#">
+				<div>
+					<label htmlFor="dyscypline">Dyscypline</label>
+					<select
+						name="dyscypline"
+						id="dyscypline"
+						ref={sportInput}
+						onChange={() => setSportSelected(null !== sportInput.current ? sportInput.current.value : '')}
+					>
+						<option value="">Select</option>
+						{Object.keys(jsonData).map((key) => (
+							<option key={key} value={key}>
+								{key}
+							</option>
+						))}{' '}
+					</select>
+				</div>
+				<div>
+					<label htmlFor="name">League name</label>
+					<input
+						type="text"
+						id="name"
+						name="name"
+						ref={leagueInput}
+						onChange={() =>
+							setLeagueSelected(null !== leagueInput.current ? leagueInput.current.value : '')}
+					/>
+				</div>
+			</form>
+			{Object.keys(jsonData).length > 0 ? (
+				<GenerateLeagueList data={jsonData} sport={sportSelected} leagueName={leagueSelected} />
+			) : (
+				<p>fetching...</p>
+			)}
 		</div>
 	)
 }
