@@ -1,9 +1,9 @@
 import Nav from './Nav'
 
 const Header = () => (
-	<header>
-		<Nav />
-	</header>
+  <header>
+    <Nav />
+  </header>
 )
 
 export default Header

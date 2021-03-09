@@ -1,9 +1,9 @@
-const Footer = ()=>{
-  
-
-  return <>
-  <footer>&copy; {new Date().getFullYear()}</footer>
-  </>
+const Footer = () => {
+  return (
+    <>
+      <footer>&copy; {new Date().getFullYear()}</footer>
+    </>
+  )
 }
 
 export default Footer

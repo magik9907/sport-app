@@ -5,13 +5,13 @@ import Header from './Header'
 type WrapperProps = {}
 
 const Wrapper: FunctionComponent<WrapperProps> = ({ children }) => {
-	return (
-		<div>
-			<Header />
-			<main>{children}</main>
-			<Footer />
-		</div>
-	)
+  return (
+    <div>
+      <Header />
+      <main>{children}</main>
+      <Footer />
+    </div>
+  )
 }
 
 export default Wrapper
