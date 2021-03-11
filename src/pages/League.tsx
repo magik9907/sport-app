@@ -1,5 +1,6 @@
 import React, { FunctionComponent, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
+import LeagueTable from '../components/LeagueTable'
 
 // type LeagueDescribePropsType = {
 //  json:{	[key:string]:string}
@@ -29,7 +30,6 @@ const League: FunctionComponent<LeagueProps> = () => {
       fetch(url)
         .then((response) => response.json())
         .then((data) => {
-          console.log(data)
           setLeagueLookupJSON({ ...data.leagues[0] })
         })
         .catch((error) => {
@@ -43,7 +43,8 @@ const League: FunctionComponent<LeagueProps> = () => {
     let key = 'strFanart' + i
     if (!leagueLookupJSON[key]) break
     fanArts.push(
-      <img key={key}
+      <img
+        key={key}
         src={leagueLookupJSON[key]}
         title={leagueLookupJSON.strLeague}
         alt={leagueLookupJSON.strLeague}
@@ -54,22 +55,33 @@ const League: FunctionComponent<LeagueProps> = () => {
   return (
     <div>
       {Object.keys(leagueLookupJSON).length > 0 ? (
-        <>
+        <><div>
           <p>{leagueLookupJSON.strCountry}</p>
           <h1>{leagueLookupJSON.strLeague}</h1>
           <img
             src={leagueLookupJSON.strBanner}
+            title={leagueLookupJSON.strLeagueAlternate}
             alt={leagueLookupJSON.strLeagueAlternate}
           />
           <p>{leagueLookupJSON.strSport}</p>
-          <p>{leagueLookupJSON.strDescriptionEN}</p>
-          <ExternalLink url={leagueLookupJSON.strYoutube}>Youtube</ExternalLink>
-          <ExternalLink url={leagueLookupJSON.strWebsite}>Website</ExternalLink>
-          <ExternalLink url={leagueLookupJSON.strTwitter}>Twitter</ExternalLink>
-          <ExternalLink url={leagueLookupJSON.strFacebook}>
-            Facebook
-          </ExternalLink>
-          {fanArts}
+          </div>
+          <LeagueTable leagueId={leagueLookupJSON.idLeague}/>
+          <div>
+            <p>{leagueLookupJSON.strDescriptionEN}</p>
+            <ExternalLink url={leagueLookupJSON.strYoutube}>
+              Youtube
+            </ExternalLink>
+            <ExternalLink url={leagueLookupJSON.strWebsite}>
+              Website
+            </ExternalLink>
+            <ExternalLink url={leagueLookupJSON.strTwitter}>
+              Twitter
+            </ExternalLink>
+            <ExternalLink url={leagueLookupJSON.strFacebook}>
+              Facebook
+            </ExternalLink>
+            {fanArts}
+          </div>
         </>
       ) : (
         <p>fetching</p>
