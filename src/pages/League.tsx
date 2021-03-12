@@ -1,6 +1,6 @@
 import React, { FunctionComponent, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import LeagueTable from '../components/LeagueTable'
+import GenerateTable from '../components/leagueTable/GenerateTable'
 
 // type LeagueDescribePropsType = {
 //  json:{	[key:string]:string}
@@ -55,17 +55,21 @@ const League: FunctionComponent<LeagueProps> = () => {
   return (
     <div>
       {Object.keys(leagueLookupJSON).length > 0 ? (
-        <><div>
-          <p>{leagueLookupJSON.strCountry}</p>
-          <h1>{leagueLookupJSON.strLeague}</h1>
-          <img
-            src={leagueLookupJSON.strBanner}
-            title={leagueLookupJSON.strLeagueAlternate}
-            alt={leagueLookupJSON.strLeagueAlternate}
-          />
-          <p>{leagueLookupJSON.strSport}</p>
+        <>
+          <div>
+            <p>{leagueLookupJSON.strCountry}</p>
+            <h1>{leagueLookupJSON.strLeague}</h1>
+            <img
+              src={leagueLookupJSON.strBanner}
+              title={leagueLookupJSON.strLeagueAlternate}
+              alt={leagueLookupJSON.strLeagueAlternate}
+            />
+            <p>{leagueLookupJSON.strSport}</p>
           </div>
-          <LeagueTable leagueId={leagueLookupJSON.idLeague}/>
+          <GenerateTable
+            leagueId={leagueLookupJSON.idLeague}
+            sport={leagueLookupJSON.strSport}
+          />
           <div>
             <p>{leagueLookupJSON.strDescriptionEN}</p>
             <ExternalLink url={leagueLookupJSON.strYoutube}>
