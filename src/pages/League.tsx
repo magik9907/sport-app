@@ -30,6 +30,7 @@ const League: FunctionComponent<LeagueProps> = () => {
       fetch(url)
         .then((response) => response.json())
         .then((data) => {
+          console.log(data)
           setLeagueLookupJSON({ ...data.leagues[0] })
         })
         .catch((error) => {
@@ -67,6 +68,7 @@ const League: FunctionComponent<LeagueProps> = () => {
             <p>{leagueLookupJSON.strSport}</p>
           </div>
           <GenerateTable
+            season={leagueLookupJSON.strCurrentSeason}
             leagueId={leagueLookupJSON.idLeague}
             sport={leagueLookupJSON.strSport}
           />

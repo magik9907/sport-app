@@ -1,51 +1,6 @@
-import { ReactElement } from 'react'
 import { Merge } from '../MergeSort'
-
-interface ILeagueTable {
-  GenerateTable(): ReactElement
-  GenerateTableHead(): ReactElement
-  GenerateTableBody(): ReactElement
-}
-
-abstract class ALeagueTable<T> implements ILeagueTable {
-  abstract columnName: { [key: string]: string }
-  bodyContent: T[] = []
-  constructor(json: T[]) {
-    this.bodyContent = json
-  }
-
-  GenerateTable() {
-    return (
-      <table>
-        {this.GenerateTableHead()}
-        {this.GenerateTableBody()}
-      </table>
-    )
-  }
-
-  GenerateTableHead() {
-    return (
-      <thead>
-        <tr>
-          {Object.entries(this.columnName).map(([key,value]) => (
-            <td key={key}>{value}</td>
-          ))}
-        </tr>
-      </thead>
-    )
-  }
-
-  GenerateTableBody() {
-    const keysList: string[] = Object.keys(this.columnName)
-    let content = this.bodyContent.map((elem: any, i: number) => {
-      let cols = keysList.map((key, y) => {
-        return <td key={`${i}-${key}${y}`}>{elem[key]}</td>
-      })
-      return <tr key={i}>{cols}</tr>
-    })
-    return <tbody>{content}</tbody>
-  }
-}
+import { ALeagueTable } from './ALeagueTable'
+import { DeleteDuplicat } from './LeagueTable'
 
 type SoccerType = {
   idStanding?: string
@@ -77,7 +32,6 @@ function Comparer(A: SoccerType = {}, B: SoccerType = {}): boolean {
   rankB = parseInt(B['intRank'] || '0')
   return rankA <= rankB
 }
-
 class SoccerTable extends ALeagueTable<SoccerType> {
   columnName: { [key: string]: string } = {
     intRank: 'Position',
@@ -93,9 +47,9 @@ class SoccerTable extends ALeagueTable<SoccerType> {
   }
 
   constructor(json: SoccerType[]) {
-    super(Merge<SoccerType>(json, Comparer))
+    super(Merge<SoccerType>(DeleteDuplicat(json), Comparer))
   }
 }
 
-export type { SoccerType, ILeagueTable }
+export type { SoccerType }
 export { SoccerTable }
