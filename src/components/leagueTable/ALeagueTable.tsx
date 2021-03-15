@@ -1,5 +1,5 @@
-import { ReactElement } from "react"
-
+import { ReactElement } from 'react'
+import {Link} from 'react-router-dom'
 interface ILeagueTable {
   GenerateTable(): ReactElement
   GenerateTableHead(): ReactElement
@@ -26,7 +26,7 @@ abstract class ALeagueTable<T> implements ILeagueTable {
     return (
       <thead>
         <tr>
-          {Object.entries(this.columnName).map(([key,value]) => (
+          {Object.entries(this.columnName).map(([key, value]) => (
             <td key={key}>{value}</td>
           ))}
         </tr>
@@ -38,6 +38,16 @@ abstract class ALeagueTable<T> implements ILeagueTable {
     const keysList: string[] = Object.keys(this.columnName)
     let content = this.bodyContent.map((elem: any, i: number) => {
       let cols = keysList.map((key, y) => {
+        if (key == 'strTeam')
+          return (
+            <td key={`${i}-${key}${y}`}>
+              <Link to={'/team/' + elem.idTeam}>
+                <img src={elem.strTeamBadge} title={elem.strTeam} alt="" />
+                {elem.strTeam}
+              </Link>
+            </td>
+          )
+
         return <td key={`${i}-${key}${y}`}>{elem[key]}</td>
       })
       return <tr key={i}>{cols}</tr>
@@ -46,5 +56,5 @@ abstract class ALeagueTable<T> implements ILeagueTable {
   }
 }
 
-export type {ILeagueTable}
-export {ALeagueTable}
+export type { ILeagueTable }
+export { ALeagueTable }

@@ -44,6 +44,7 @@ class SoccerTable extends ALeagueTable<SoccerType> {
     intGoalsFor: 'Goal for',
     intGoalsAgainst: 'Goal against',
     intGoalDifference: 'Diffrence goal',
+    strDescription: 'additional',
   }
 
   constructor(json: SoccerType[]) {
