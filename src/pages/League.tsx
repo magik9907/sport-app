@@ -1,5 +1,6 @@
 import React, { FunctionComponent, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
+import { FavoriteElemType } from '../components/Favorite'
 import GenerateTable from '../components/leagueTable/GenerateTable'
 
 // type LeagueDescribePropsType = {
@@ -39,6 +40,28 @@ const League: FunctionComponent<LeagueProps> = () => {
     }
   }, [id])
 
+
+  const addFavoriteLeague = () => {
+    let toSave: FavoriteElemType
+    let localStorageArray: { [key: string]: FavoriteElemType } | null
+    localStorageArray = JSON.parse(
+      localStorage.getItem('favoriteLeagues') || '{}'
+    )
+    if (localStorageArray === null ) localStorageArray = {}
+
+    if (leagueLookupJSON !== null) {
+      toSave = {
+        badge: leagueLookupJSON.strBadge,
+        name: leagueLookupJSON.strLeague,
+        id: id,
+      }
+      if (!localStorageArray[leagueLookupJSON.strLeagueAlternate]) {
+        localStorageArray[leagueLookupJSON.strLeagueAlternate] = toSave
+        localStorage.setItem('favoriteLeagues', JSON.stringify(localStorageArray))
+      }
+    }
+  }
+
   let fanArts: React.ReactNodeArray = []
   for (let i = 1; ; i++) {
     let key = 'strFanart' + i
@@ -55,6 +78,7 @@ const League: FunctionComponent<LeagueProps> = () => {
 
   return (
     <div>
+      <button onClick={addFavoriteLeague}>Favorite</button>
       {Object.keys(leagueLookupJSON).length > 0 ? (
         <>
           <div>

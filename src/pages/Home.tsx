@@ -1,19 +1,14 @@
-import Favorite from '../components/Favorite'
-
-/*
-	favorite team, league 
-	short cut to sports list, leagues, countries,
-*/
+import Favorite, { FavoriteElemType } from '../components/Favorite'
 
 type favoriteTypes = {
-  teams: Array<number> | string
-  leagues: Array<number> | string
+  teams: { [key: string]: FavoriteElemType } | string
+  leagues: { [key: string]: FavoriteElemType } | string
 }
 
 function Home() {
   const favorite: favoriteTypes = {
-    teams: localStorage.getItem('favoriteTeams') || [],
-    leagues: localStorage.getItem('favoriteLeagues') || [],
+    teams: JSON.parse(localStorage.getItem('favoriteTeams') || '{}'),
+    leagues: JSON.parse(localStorage.getItem('favoriteLeagues') || '{}'),
   }
 
   return (
