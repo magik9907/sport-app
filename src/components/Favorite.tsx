@@ -1,3 +1,5 @@
+import {Link} from 'react-router-dom'
+
 type FavoriteElemType = {
   id: string
   badge: string
@@ -13,8 +15,8 @@ function Favorite({
 }) {
   const url =
     name === 'teams'
-      ? 'https://www.thesportsdb.com/api/v1/json/1/lookupteam.php?id='
-      : 'https://www.thesportsdb.com/api/v1/json/1/lookupleague.php?id='
+      ? 'team/'
+      : 'league/'
   if (Object.keys(list).length === 0)
     return (
       <div>
@@ -27,10 +29,10 @@ function Favorite({
       <p>Favorite {name}</p>
       {Object.entries(list).map(([key, value]: [string, FavoriteElemType]) => {
         return (
-          <a key={key} href={url + value.id}>
+          <Link key={key} to={url + value.id}>
             <img src={value.badge} alt={value.name} />
             {value.name}
-          </a>
+          </Link>
         )
       })}
     </div>
