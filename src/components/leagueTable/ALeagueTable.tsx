@@ -1,5 +1,5 @@
 import { ReactElement } from 'react'
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 interface ILeagueTable {
   GenerateTable(): ReactElement
   GenerateTableHead(): ReactElement
@@ -38,7 +38,7 @@ abstract class ALeagueTable<T> implements ILeagueTable {
     const keysList: string[] = Object.keys(this.columnName)
     let content = this.bodyContent.map((elem: any, i: number) => {
       let cols = keysList.map((key, y) => {
-        if (key == 'strTeam')
+        if (key === 'strTeam')
           return (
             <td key={`${i}-${key}${y}`}>
               <Link to={'/team/' + elem.idTeam}>

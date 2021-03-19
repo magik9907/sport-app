@@ -18,6 +18,7 @@ import { RugbyTable } from './RugbyTable'
 import { SnookerTable } from './SnookerTable'
 import { SoccerTable } from './SoccerTable'
 import { VolleyballTable } from './VolleyballTable'
+import Events from '../Events'
 type LeagueType = {
   json: any
   sport: string
@@ -37,7 +38,7 @@ function DeleteDuplicat(array: { [key: string]: string }[]) {
 }
 
 function LeagueTable(props: LeagueType) {
-  const [state, setState] = useState<SoccerTable | IceHockeyTable | null>(null)
+  const [state, setState] = useState<SoccerTable | null>(null)
 
   useEffect(() => {
     let objLeague = null
@@ -105,7 +106,18 @@ function LeagueTable(props: LeagueType) {
     setState(objLeague)
   }, [])
 
-  return <>{state ? <>{state.GenerateTable()}</> : <p>problem</p>}</>
+  return (
+    <>
+      {state ? (
+        <>
+          {state.GenerateTable()}
+          <Events />
+        </>
+      ) : (
+        <p>problem</p>
+      )}
+    </>
+  )
 }
 
 export { DeleteDuplicat }

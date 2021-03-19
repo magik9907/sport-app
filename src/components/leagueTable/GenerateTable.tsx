@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import LeagueTable from './LeagueTable'
-
+import { Link } from 'react-router-dom'
 const GenerateTable = (props: {
   season: string
   leagueId: string
@@ -37,7 +37,9 @@ const GenerateTable = (props: {
         <p>fetchning...</p>
       ) : (
         <>
-          <p>{props.season}</p>
+          <p>
+            <Link to={`/season/${seasonJSON[0].idLeague}/${props.season}`}>{props.season}</Link>
+          </p>
           <div>
             <LeagueTable json={seasonJSON} sport={props.sport}></LeagueTable>
           </div>

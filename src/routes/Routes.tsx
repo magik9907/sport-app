@@ -8,9 +8,19 @@ import Teams from '../pages/Teams'
 import Leagues from '../pages/Leagues'
 import Wrapper from '../components/Wrapper'
 import Error404 from '../pages/Error404'
+import Season from '../components/Season'
+import Event from '../components/Event'
 
 const Routes = () => {
   const routes = [
+    {
+      path: '/season/:id/:season',
+      component: Season,
+    },
+    {
+      path: '/event/:id',
+      component: Event,
+    },
     {
       path: '/team/:id',
       component: Team,
