@@ -12,7 +12,6 @@ const Search = ({ name }: propsType) => {
     fetch(`https://www.thesportsdb.com/api/v1/json/1/searchteams.php?t=${name}`)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data)
         setJson(data.teams)
       })
       .catch((resolve) => {

@@ -14,7 +14,12 @@ type LeagueProps = {}
 
 const ExternalLink = (props: { url: string; children: React.ReactNode }) => {
   return (
-    <a href={'https://' + props.url} rel="noopener noreferrer" target="blank">
+    <a
+      className="btn btn-primary text-light"
+      href={'https://' + props.url}
+      rel="noopener noreferrer"
+      target="blank"
+    >
       {props.children}
     </a>
   )
@@ -31,7 +36,6 @@ const League: FunctionComponent<LeagueProps> = () => {
       fetch(url)
         .then((response) => response.json())
         .then((data) => {
-          console.log(data)
           setLeagueLookupJSON({ ...data.leagues[0] })
         })
         .catch((error) => {
@@ -40,14 +44,13 @@ const League: FunctionComponent<LeagueProps> = () => {
     }
   }, [id])
 
-
   const addFavoriteLeague = () => {
     let toSave: FavoriteElemType
     let localStorageArray: { [key: string]: FavoriteElemType } | null
     localStorageArray = JSON.parse(
       localStorage.getItem('favoriteLeagues') || '{}'
     )
-    if (localStorageArray === null ) localStorageArray = {}
+    if (localStorageArray === null) localStorageArray = {}
 
     if (leagueLookupJSON !== null) {
       toSave = {
@@ -57,7 +60,10 @@ const League: FunctionComponent<LeagueProps> = () => {
       }
       if (!localStorageArray[leagueLookupJSON.strLeagueAlternate]) {
         localStorageArray[leagueLookupJSON.strLeagueAlternate] = toSave
-        localStorage.setItem('favoriteLeagues', JSON.stringify(localStorageArray))
+        localStorage.setItem(
+          'favoriteLeagues',
+          JSON.stringify(localStorageArray)
+        )
       }
     }
   }
@@ -68,6 +74,7 @@ const League: FunctionComponent<LeagueProps> = () => {
     if (!leagueLookupJSON[key]) break
     fanArts.push(
       <img
+        className="img-fluid "
         key={key}
         src={leagueLookupJSON[key]}
         title={leagueLookupJSON.strLeague}
@@ -85,6 +92,7 @@ const League: FunctionComponent<LeagueProps> = () => {
             <p>{leagueLookupJSON.strCountry}</p>
             <h1>{leagueLookupJSON.strLeague}</h1>
             <img
+              className="img-fluid"
               src={leagueLookupJSON.strBanner}
               title={leagueLookupJSON.strLeagueAlternate}
               alt={leagueLookupJSON.strLeagueAlternate}

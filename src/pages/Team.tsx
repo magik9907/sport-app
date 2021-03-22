@@ -65,7 +65,6 @@ const Team: FunctionComponent<TeamProps> = (props) => {
       fetch(url)
         .then((response) => response.json())
         .then((data) => {
-          console.log(data)
           setJson({ ...data.teams[0] })
         })
         .catch((error) => {
@@ -80,7 +79,7 @@ const Team: FunctionComponent<TeamProps> = (props) => {
     localStorageArray = JSON.parse(
       localStorage.getItem('favoriteTeams') || '{}'
     )
-    if (localStorageArray === null ) localStorageArray = {}
+    if (localStorageArray === null) localStorageArray = {}
 
     if (json !== null) {
       toSave = {
@@ -97,20 +96,51 @@ const Team: FunctionComponent<TeamProps> = (props) => {
 
   return json != null ? (
     <div>
-      <button onClick={addFavoriteTeam}>Favorite</button>
-      <img src={json.strTeamBanner} alt={json.strTeam} />
-      <img src={json.strTeamBadge} alt={json.strTeam} />
+      <button onClick={addFavoriteTeam} className="btn btn-primary text-light">
+        Favorite
+      </button>
+      <img src={json.strTeamBanner} alt={json.strTeam} className="img-fluid" />
+      <img
+        src={json.strTeamBadge}
+        alt={json.strTeam}
+        style={{ maxWidth: '100px' }}
+      />
       <h1>{json.strTeam}</h1>
       <p>{json.strCountry}</p>
       <p>{json.intFormedYear}</p>
       <p>
         {json.strStadium}: {json.intStadiumCapacity}
       </p>
-      <a href={'https' + json.strWebsite}>Website</a>
-      <a href={'https' + json.strTwitter}>twiiter</a>
-      <a href={'https' + json.strInstagram}>Instagram</a>
-      <a href={'https' + json.strFacebook}>facebook</a>
-      <a href={'https' + json.strYoutube}>youtube</a>
+      <a
+        href={'https' + json.strWebsite}
+        className="btn btn-primary text-light"
+      >
+        Website
+      </a>
+      <a
+        href={'https' + json.strTwitter}
+        className="btn btn-primary text-light"
+      >
+        twiiter
+      </a>
+      <a
+        href={'https' + json.strInstagram}
+        className="btn btn-primary text-light"
+      >
+        Instagram
+      </a>
+      <a
+        href={'https' + json.strFacebook}
+        className="btn btn-primary text-light"
+      >
+        facebook
+      </a>
+      <a
+        href={'https' + json.strYoutube}
+        className="btn btn-primary text-light"
+      >
+        youtube
+      </a>
       <p>{json.strLeague}</p>
       <p>{json.strLeague2}</p>
       <p>{json.strLeague3}</p>
@@ -120,7 +150,11 @@ const Team: FunctionComponent<TeamProps> = (props) => {
       <p>Stadium</p>
       <p>{json.strStadiumLocation}</p>
       <p>{json.strStadiumDescription}</p>
-      <img src={json.strStadiumThumb} alt={json.strStadium} />
+      <img
+        src={json.strStadiumThumb}
+        alt={json.strStadium}
+        className="img-fluid"
+      />
     </div>
   ) : (
     <p>NotFound</p>

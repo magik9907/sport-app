@@ -1,0 +1,16 @@
+body {
+  background-color: greenyellow;
+}
+
+a {
+  &:visited {
+    color: black;
+  }
+  &:hover {
+    color: black;
+  }
+  &:link {
+    color: black;
+  }
+  color: black;
+}

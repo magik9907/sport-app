@@ -15,7 +15,7 @@ abstract class ALeagueTable<T> implements ILeagueTable {
 
   GenerateTable() {
     return (
-      <table>
+      <table className="table-dark">
         {this.GenerateTableHead()}
         {this.GenerateTableBody()}
       </table>
@@ -27,7 +27,7 @@ abstract class ALeagueTable<T> implements ILeagueTable {
       <thead>
         <tr>
           {Object.entries(this.columnName).map(([key, value]) => (
-            <td key={key}>{value}</td>
+            <th key={key}>{value}</th>
           ))}
         </tr>
       </thead>
@@ -41,7 +41,10 @@ abstract class ALeagueTable<T> implements ILeagueTable {
         if (key === 'strTeam')
           return (
             <td key={`${i}-${key}${y}`}>
-              <Link to={'/team/' + elem.idTeam}>
+              <Link
+                to={'/team/' + elem.idTeam}
+                className="text-primary font-uppercase"
+              >
                 <img src={elem.strTeamBadge} title={elem.strTeam} alt="" />
                 {elem.strTeam}
               </Link>

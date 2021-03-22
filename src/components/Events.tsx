@@ -10,22 +10,26 @@ export default function Events() {
     )
       .then((response) => response.json())
       .then((data) => {
-        console.log('events',data)
         setJson(data.events)
+      })
+      .catch((err) => {
+        console.error(err)
       })
   }, [])
   if (json === null) return <p>No data</p>
   return (
     <div>
       {json[0].strLeague}
-      <table>
+      <table className="table">
         <tbody>
           {json.map((elem) => (
             <tr key={elem.idEvent}>
               <td>{elem.strHomeTeam}</td>
               <td>
-                <Link to={`/event/${elem.idEvent}`}>
-                  {' '}
+                <Link
+                  to={`/event/${elem.idEvent}`}
+                  className="text-danger cursor-pointer"
+                >
                   {elem.intHomeScore}- {elem.intAwayScore}
                 </Link>
               </td>

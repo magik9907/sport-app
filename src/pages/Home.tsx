@@ -1,5 +1,5 @@
 import Favorite, { FavoriteElemType } from '../components/Favorite'
-
+import './home.scss'
 type favoriteTypes = {
   teams: { [key: string]: FavoriteElemType } | string
   leagues: { [key: string]: FavoriteElemType } | string
@@ -12,10 +12,12 @@ function Home() {
   }
 
   return (
-    <div>
-      {Object.entries(favorite).map(([key, value]) => (
-        <Favorite key={key} list={value} name={key} />
-      ))}
+    <div className="container">
+      <div className="row favorite-container">
+        {Object.entries(favorite).map(([key, value]) => (
+          <Favorite key={key} list={value} name={key} />
+        ))}
+      </div>
     </div>
   )
 }

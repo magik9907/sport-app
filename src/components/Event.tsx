@@ -7,8 +7,10 @@ export default function Event() {
     fetch(`https://www.thesportsdb.com/api/v1/json/1/lookupevent.php?id=${id}`)
       .then((response) => response.json())
       .then((data) => {
-        console.log('Event', data)
         setJson(data.events[0])
+      })
+      .catch((err) => {
+        console.error(err)
       })
   }, [])
   if (json === null) return <p>No data</p>
@@ -16,12 +18,14 @@ export default function Event() {
     <div>
       <div>
         <h1>{json.strEvent}</h1>
-        <p>{json.dateEvent}: {json.strTime}</p>
+        <p>
+          {json.dateEvent}: {json.strTime}
+        </p>
         <p>
           {' '}
           {json.intHomeScore}-{json.intAwayScore}
         </p>
-        <p>
+        <p className="text-primary">
           {json.strLeague} {json.strSeason} Round: {json.intRound}
         </p>
         <div>
@@ -47,13 +51,40 @@ export default function Event() {
           </div>
         </div>
         <div>
-          <table>
+          <table className="table">
+            <thead>
+              <tr>
+                <th>{json.strHomeTeam}</th>
+                <th></th>
+                <th>{json.strAwayTeam}</th>
+              </tr>
+            </thead>
             <tbody>
-              <tr><td>{json.intHomeScore}</td><td>-</td><td>{json.intAwayScore}</td></tr>
-              <tr><td>{json.strHomeGoalDetails}</td><td>-</td><td>{json.strAwayGoalDetails}</td></tr>
-              <tr><td>{json.intHomeShots}</td><td>-</td><td>{json.intAwayShots}</td></tr>
-              <tr><td>{json.strGomeYellowCards}</td><td>-</td><td>{json.StrAwayYellowCards}</td></tr>
-              <tr><td>{json.strHomeRedCards}</td><td>-</td><td>{json.strAwayRedCards}</td></tr>
+              <tr>
+                <td>{json.intHomeScore}</td>
+                <td>-</td>
+                <td>{json.intAwayScore}</td>
+              </tr>
+              <tr>
+                <td>{json.strHomeGoalDetails}</td>
+                <td>-</td>
+                <td>{json.strAwayGoalDetails}</td>
+              </tr>
+              <tr>
+                <td>{json.intHomeShots}</td>
+                <td>-</td>
+                <td>{json.intAwayShots}</td>
+              </tr>
+              <tr>
+                <td>{json.strGomeYellowCards}</td>
+                <td>-</td>
+                <td>{json.StrAwayYellowCards}</td>
+              </tr>
+              <tr>
+                <td>{json.strHomeRedCards}</td>
+                <td>-</td>
+                <td>{json.strAwayRedCards}</td>
+              </tr>
             </tbody>
           </table>
         </div>

@@ -14,14 +14,19 @@ const Header = () => {
     <header>
       <Nav />
       <form onSubmit={onSubmit}>
-        <label htmlFor="searchTeamInput">Search team:</label>
-        <input
-          type="text"
-          ref={searchInput}
-          id="searchTeamInput"
-          name="searchTeamInput"
-        />
-        <button type="submit">search</button>
+        <div className="input-group mb-3">
+          <label htmlFor="searchTeamInput" className="input-group-text">Search team:</label>
+          <input
+            type="text"
+            ref={searchInput}
+            id="searchTeamInput"
+            name="searchTeamInput"
+            className="form-control"
+          />
+          <button type="submit" className="btn bg-white btn-outline-secondary">
+            search
+          </button>
+        </div>
       </form>
     </header>
   )

@@ -27,8 +27,8 @@ class League implements ILeague {
 
   public ToJSX() {
     return (
-      <li key={this.idLeague}>
-        <Link to={'/league/' + this.idLeague}>{this.strLeague}</Link>
+      <li key={this.idLeague} className="bg-dark list-group-item">
+        <Link to={'/league/' + this.idLeague} className="text-light">{this.strLeague}</Link>
       </li>
     )
   }
@@ -69,8 +69,8 @@ class LeaguesList implements ILeagueList {
 
     return (
       <>
-        <p>{this.sport}</p>
-        <ul>{leagueElements}</ul>
+        <p className="display-4">{this.sport}</p>
+        <ul className="  list-group width-100 flex-row flex-wrap">{leagueElements}</ul>
       </>
     )
   }

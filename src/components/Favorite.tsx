@@ -1,4 +1,4 @@
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 type FavoriteElemType = {
   id: string
@@ -13,28 +13,35 @@ function Favorite({
   list: { [key: string]: FavoriteElemType } | string
   name: string
 }) {
-  const url =
-    name === 'teams'
-      ? 'team/'
-      : 'league/'
+  const url = name === 'teams' ? 'team/' : 'league/'
   if (Object.keys(list).length === 0)
     return (
-      <div>
+      <div className="">
         <p>Favorite {name}</p>
         <p>You don't have favorite {name}</p>
       </div>
     )
   return (
-    <div>
-      <p>Favorite {name}</p>
-      {Object.entries(list).map(([key, value]: [string, FavoriteElemType]) => {
-        return (
-          <Link key={key} to={url + value.id}>
-            <img src={value.badge} alt={value.name} />
-            {value.name}
-          </Link>
-        )
-      })}
+    <div className="col">
+      <p className="display-4 text-uppercase font-weight-bold">
+        Favorite {name}
+      </p>
+      <div className="d-flex ">
+        {Object.entries(list).map(
+          ([key, value]: [string, FavoriteElemType]) => {
+            return (
+              <Link
+                key={key}
+                to={url + value.id}
+                className="d-flex flex-wrap align-items-center"
+              >
+                <img src={value.badge} alt={value.name} />
+                <span className="">{value.name}</span>
+              </Link>
+            )
+          }
+        )}
+      </div>
     </div>
   )
 }

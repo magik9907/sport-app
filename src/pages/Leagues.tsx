@@ -25,7 +25,7 @@ const GenerateLeagueList = (props: GenerateLeagueListType) => {
       </div>
     )
   } catch (e) {
-    console.log(e)
+    console.error(e)
     return <p key={'pr'}>Problem</p>
   }
 }
@@ -57,9 +57,12 @@ const Leagues: FunctionComponent<LeaguesProps> = () => {
     <div>
       <h1>Leagues</h1>
       <form action="#">
-        <div>
-          <label htmlFor="dyscypline">Dyscypline</label>
+        <div className="input-group md-3">
+          <label htmlFor="dyscypline" className="input-group-text">
+            Dyscypline
+          </label>
           <select
+            className="custom-select"
             name="dyscypline"
             id="dyscypline"
             ref={sportInput}
@@ -77,9 +80,12 @@ const Leagues: FunctionComponent<LeaguesProps> = () => {
             ))}{' '}
           </select>
         </div>
-        <div>
-          <label htmlFor="name">League name</label>
+        <div className="input-group md-3">
+          <label htmlFor="name" className="input-group-text">
+            League name
+          </label>
           <input
+            className="custom-select"
             type="text"
             id="name"
             name="name"
