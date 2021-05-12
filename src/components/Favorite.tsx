@@ -17,7 +17,7 @@ function Favorite({
   if (Object.keys(list).length === 0)
     return (
       <div className="">
-        <p>Favorite {name}</p>
+        <p className="display-4 text-uppercase font-weight-bold">Favorite {name}</p>
         <p>You don't have favorite {name}</p>
       </div>
     )
@@ -26,14 +26,14 @@ function Favorite({
       <p className="display-4 text-uppercase font-weight-bold">
         Favorite {name}
       </p>
-      <div className="d-flex ">
+      <div className="d-flex flex-wrap">
         {Object.entries(list).map(
           ([key, value]: [string, FavoriteElemType]) => {
             return (
               <Link
                 key={key}
                 to={url + value.id}
-                className="d-flex flex-wrap align-items-center"
+                className="m-2 bg-dark p-3 text-primary d-flex align-items-center flex-column "
               >
                 <img src={value.badge} alt={value.name} />
                 <span className="">{value.name}</span>

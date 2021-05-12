@@ -85,7 +85,7 @@ const League: FunctionComponent<LeagueProps> = () => {
 
   return (
     <div>
-      <button onClick={addFavoriteLeague}>Favorite</button>
+      <button onClick={addFavoriteLeague} className="btn btn-primary text-light">Favorite</button>
       {Object.keys(leagueLookupJSON).length > 0 ? (
         <>
           <div>

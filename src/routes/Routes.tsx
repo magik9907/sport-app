@@ -42,7 +42,7 @@ const Routes = () => {
       component: Player,
     },
     {
-      path: '/',
+      path: '/sport-app/',
       component: Home,
     },
   ]

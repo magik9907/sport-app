@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import './nav.scss'
 const linkList = [
-  { name: 'Home Page', path: '/' },
+  { name: 'Home Page', path: '/sport-app/' },
   { name: 'Leagues', path: '/leagues' },
 ]
 

@@ -69,7 +69,7 @@ class LeaguesList implements ILeagueList {
 
     return (
       <>
-        <p className="display-4">{this.sport}</p>
+        <p className="display-4 text-break">{this.sport}</p>
         <ul className="  list-group width-100 flex-row flex-wrap">{leagueElements}</ul>
       </>
     )

@@ -21,18 +21,18 @@ const Search = ({ name }: propsType) => {
   return (
     <>
       {json !== null && json.length > 0 ? (
-        <div>
+        <ul className="list-group width-100 flex-row flex-wrap">
           {json.map((elem: { [key: string]: string }) => {
             return (
-              <>
-                <Link key={elem.idTeam} to={`/team/${elem.idTeam}`}>
+              <li className="bg-dark list-group-item">
+                <Link key={elem.idTeam} to={`/team/${elem.idTeam}`} className="text-light">
                   {elem.strTeam}
                 </Link>
                 <br />
-              </>
+              </li>
             )
           })}
-        </div>
+        </ul>
       ) : (
         <p>No data</p>
       )}
